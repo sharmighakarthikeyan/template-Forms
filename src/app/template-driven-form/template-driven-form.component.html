@@ -1,0 +1,108 @@
+<div class="container">
+    <div id="design1">
+
+<!--novalidate default ta angular ra irukkum use avoild html -->
+<!--ngNativeValidate use panna html validation work aagum-->
+<form #contactform="ngForm" (submit)="onsubmit(contactform)">
+    <h1>Template driven form</h1>
+    <br><br>
+    <p>
+        <label for="firstname">First Name</label><br>
+        <input type="text" #firstname="ngModel" id="firstname" name="firstname" [(ngModel)]="contacts.firstName" required minlength="5">
+       <br>
+           <span class="text-danger" *ngIf="firstname.errors?.['minlength']">
+            minimun length 6 th character
+           </span>
+           <span class="text-danger" *ngIf="!firstname.valid && (firstname.touched || firstname.dirty)">
+            First name required
+        </span>
+    </p><br>
+
+    <p>
+        <label for="lastname">Last Name</label><br>
+        <input type="text"  #lastname="ngModel" id="lastname"  name="lastname" [(ngModel)]="contacts.lastName" required maxlength="30" pattern="^[a-zA-z]+$">
+    </p>
+    <span class="text-danger" *ngIf="lastname.errors?.['maxlength']">
+       maxium length 5 th character
+       </span><br>
+       <span class="text-danger" *ngIf="lastname.errors?.['pattern']">
+       only character allowed
+       </span>
+       <span class="text-danger" *ngIf="!lastname.valid && (firstname.touched || firstname.dirty)">
+       last name required
+    </span>
+
+
+    
+
+
+
+
+
+
+    <p>
+        <label for="email">EmailId</label><br>
+        <input type="text" #email="ngModel" id="email" name="email" [(ngModel)]="contacts.email" required pattern="[a-zA-Z0-9]+@gmail+.com">
+        <span class="text-danger" *ngIf="email.errors?.['pattern']">
+            Invalid
+            </span>
+            <span class="text-danger" *ngIf="!email.valid && (firstname.touched || firstname.dirty)">
+            email required
+         </span>
+    </p><br>
+
+    <p>
+        <label  for="Gender">Gender</label><br>
+        <input  [ngStyle]="{'accent-color':'red'}"  type="radio" value="Male" name="Gender" id="Gender" [(ngModel)]="contacts.gender">Male
+        
+        <input  [ngStyle]="{'accent-color':'red'}"  type="radio" value="Female" name="Gender" id="Gender" [(ngModel)]="contacts.gender">Female
+ 
+   
+        
+    </p><br>
+
+    <p>
+        <label for="Ismarried">Ismarried</label><br>
+        <input type="checkbox" name="Ismarried" [(ngModel)]="contacts.ismarried" required>
+    </p>
+    
+    <br>
+
+
+        <label for="country">Country</label><br>
+        <select id="country" name="country" [(ngModel)]="contacts.country">
+            <option>select</option>
+            <option [ngValue]="con.id" *ngFor="let con of countries">{{con.name}}</option>
+        </select>
+      
+
+
+
+
+        <div ngModelGroup="address">
+
+            <p>
+                <label for="city">City</label><br>
+                <input type="text" name="city" [(ngModel)]="contacts.address.city">
+            </p><br>
+
+            <p>
+                <label for="street">Street</label><br>
+                <input type="street" name="street" [(ngModel)]="contacts.address.street">
+            </p><br>
+
+            <p>
+                <label for="pincode">pincode</label><br>
+                <input type="pincode" name="pincode" [(ngModel)]="contacts.address.pincode">
+            </p><br>
+
+
+        </div>
+
+
+    <br><br><br><br>
+        <button class="btn btn-danger"[disabled]="!contactform.valid">Submit</button>
+
+</form>
+</div>
+</div>
